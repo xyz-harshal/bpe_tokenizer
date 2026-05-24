@@ -32,7 +32,7 @@ impl BPETokenizer {
         //Parameter to be changed
         let vocab_size = 20;
 
-        for i in 0..vocab_size {
+        for _ in 0..vocab_size {
             let mut pair_freq: HashMap<(String, String), u32> = HashMap::new();
             for (_, (freq, char_seq)) in &word_occurence {
                 for i in 1..char_seq.len() {
