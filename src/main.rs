@@ -117,6 +117,22 @@ impl BPETokenizer {
         }
         ids
     }
+
+    fn decode(&self, input: &Vec<u32>) -> Vec<String> {
+        let mut str_vec: Vec<String> = Vec::new();
+        let rev_vocab: HashMap<u32, String> = self.vocab
+            .iter()
+            .map(|(k, v)| (*v, k.clone()))
+            .collect();
+        for token in &input {
+            if let Some(s) = rev_vocab.get(token) {
+                str_vec.push(s.clone());
+            }else {
+                str_vec.push("NAN".to_string());
+            }
+        }
+        str_vec
+    }
 }
 
 fn main() {
@@ -140,4 +156,7 @@ fn main() {
     let encode_input = encode_input.trim();
     let ids: Vec<u32> = tokenizer.encode(encode_input);
     println!("Encoded: {:?}", ids);
+
+    let decoded: Vec<String> = tokenizer.decode(ids);
+    println!("Decoded: {:?}", decoded);
 }
